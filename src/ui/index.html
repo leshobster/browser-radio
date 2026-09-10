@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+  <title>Browser Radio</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-radio" viewBox="0 0 24 24"><path d="M4 10v4m4-8v12m4-15v18m4-15v12m4-8v4"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="m9 3-1 3-3 1 1 3-2 2 2 2-1 3 3 1 1 3h6l1-3 3-1-1-3 2-2-2-2 1-3-3-1-1-3Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="m14 6-6 6 6 6M8 12h12"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5M6 6a8 8 0 0 1 14 6M18 18a8 8 0 0 1-14-6"/></symbol>
+    <symbol id="i-headphones" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2M4 13h3v8H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Zm16 0h-3v8h3a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Z"/></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 4 5 9H2v6h3l6 5Zm4 4a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></symbol>
+    <symbol id="i-channel" viewBox="0 0 24 24"><path d="M5 8h14M4 16h14M10 3 6 21M18 3l-4 18"/></symbol>
+    <symbol id="i-join" viewBox="0 0 24 24"><path d="M14 4h6v16h-6M3 12h12m-5-5 5 5-5 5"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-11 11M10 4H4v16h16v-6"/></symbol>
+  </svg>
+
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark"><svg><use href="#i-radio"/></svg></span><div><h1>Browser Radio</h1><span class="brand-caption">A listening room, anywhere.</span></div></div>
+    <div class="header-actions"><span class="connection-pill"><span class="dot" id="bot-dot"></span><span id="bot-status">Set up your bot</span></span><button id="settings-open" class="icon-button settings-button" title="Bot settings" aria-label="Bot settings"><svg><use href="#i-settings"/></svg></button></div>
+  </header>
+
+  <main class="workspace">
+    <aside class="sidebar">
+      <div class="section-label"><span>CONTROL ROOM</span><span id="live-badge" class="badge">OFF AIR</span></div>
+      <div class="destination-card">
+        <span class="channel-icon"><svg><use href="#i-channel"/></svg></span>
+        <div class="destination-copy"><span id="guild-name">YOUR DISCORD SERVER</span><h2 id="channel-name">Find your channel</h2><p id="channel-hint">Join a voice channel in Discord, then bring your bot along.</p></div>
+      </div>
+      <button id="join" class="button join-button"><svg><use href="#i-join"/></svg><span>Join my channel</span></button>
+      <button id="leave" class="leave-button" disabled>Leave channel <span>↗</span></button>
+
+      <div class="divider"></div>
+      <div class="section-label">BROADCAST</div>
+      <button id="broadcast" class="button broadcast-button" disabled><span class="play-icon" id="broadcast-icon"></span><span id="broadcast-label">Start broadcast</span></button>
+      <p class="control-note" id="broadcast-note">Connect to a channel to go on air.</p>
+
+      <div class="volume-label"><label for="volume"><svg><use href="#i-volume"/></svg>Broadcast volume</label><output id="volume-value" for="volume">100%</output></div>
+      <input type="range" id="volume" min="0" max="100" value="100" aria-label="Broadcast volume">
+      <div class="monitor-row"><div class="monitor-copy"><svg><use href="#i-headphones"/></svg><div><label for="monitor">Listen locally</label><span>Hear it on this computer</span></div></div><label class="switch"><input type="checkbox" id="monitor" aria-label="Listen locally"><span></span></label></div>
+
+      <div class="sidebar-bottom"><div class="source-line"><span class="dot" id="capture-dot"></span><span id="capture-status">Opening browser audio…</span></div><p>Music controls live in the browser.<br>Your broadcast stays when you leave.</p></div>
+    </aside>
+
+    <section class="browser-panel" aria-label="Music browser">
+      <div class="browser-tab"><span class="tab-dot"></span><span id="browser-title">YouTube</span><button id="hide-browser" type="button" class="browser-visibility" aria-pressed="false" title="Hide the browser while keeping its audio playing">Hide browser</button></div>
+      <form class="addressbar" id="address-form"><div class="navigation"><button type="button" class="icon-button" id="back" title="Back" aria-label="Back" disabled><svg><use href="#i-arrow"/></svg></button><button type="button" class="icon-button" id="forward" title="Forward" aria-label="Forward" disabled><svg class="flipped"><use href="#i-arrow"/></svg></button><button type="button" class="icon-button" id="reload" title="Reload" aria-label="Reload"><svg><use href="#i-refresh"/></svg></button></div><div class="address-field"><span class="site-icon">⌕</span><input type="text" id="address" spellcheck="false" autocomplete="off" aria-label="Website address" value="https://www.youtube.com/"><button type="submit" class="go-button" aria-label="Go to address">↵</button></div><button type="button" id="youtube" class="youtube-button" title="Open YouTube" aria-label="Open YouTube"><span>▶</span>YouTube</button><button type="button" id="youtube-music" class="youtube-button" title="Open YouTube Music" aria-label="Open YouTube Music"><span aria-hidden="true">&#9835;</span>YouTube Music</button></form>
+      <div id="error-banner" class="error-banner" role="alert" hidden><span id="error-text"></span><button id="dismiss-error" aria-label="Dismiss error">×</button></div>
+      <div id="page-error" class="page-error" hidden></div>
+      <div id="browser-slot" class="browser-slot"><div class="browser-placeholder"><svg><use href="#i-radio"/></svg><p id="browser-placeholder-text">Opening your music browser…</p><button id="show-browser" class="button invite-button" hidden>Show browser</button></div></div>
+    </section>
+  </main>
+  <footer><span><span class="tiny-dot"></span> Only this browser is your audio source</span><span>Minimize to keep listening <span class="footer-separator">·</span> <span id="version">v1.0.0</span></span></footer>
+
+  <dialog id="settings-dialog" aria-labelledby="settings-title">
+    <div class="dialog-heading"><div><span class="eyebrow">FIRST, CONNECT YOUR BOT</span><h2 id="settings-title">Your private control room.</h2></div><button id="settings-close" class="icon-button close-button" aria-label="Close settings">×</button></div>
+    <p class="dialog-intro">A one-time setup connects Browser Radio to Discord. Your bot token is saved on this Windows account.</p>
+    <div class="setup-steps">
+      <div><span class="step-number">1</span><p>Create an application in Discord, open its <strong>Bot</strong> page, and copy or reset its bot token.</p><button type="button" id="portal" class="text-link">Developer Portal <svg><use href="#i-external"/></svg></button></div>
+      <div><span class="step-number">2</span><p>Enable <strong>Developer Mode</strong> in Discord’s Advanced settings. Right-click yourself and choose <strong>Copy User ID</strong>.</p><button type="button" id="user-id-help" class="text-link">Find your ID <svg><use href="#i-external"/></svg></button></div>
+    </div>
+    <form id="settings-form">
+      <label class="field-label" for="owner-id">Your Discord user ID</label><input id="owner-id" class="text-input" inputmode="numeric" autocomplete="off" placeholder="e.g. 123456789012345678" required pattern="[0-9]{17,20}">
+      <label class="field-label token-label" for="bot-token">Bot token <span id="token-saved"></span></label><input id="bot-token" class="text-input" type="password" autocomplete="new-password" placeholder="Paste your bot token here" spellcheck="false">
+      <p class="field-hint">Use a bot token, not your personal Discord token. Never paste it into a chat.</p>
+      <div id="settings-feedback" class="settings-feedback" role="status" hidden></div>
+      <div class="settings-actions"><button type="button" id="forget-settings" class="text-link danger" hidden>Forget saved bot</button><button id="save-settings" class="button join-button" type="submit">Save & connect</button></div>
+    </form>
+    <div class="invite-step"><span class="step-number">3</span><p><strong>Invite it to your server.</strong><br>Then join a normal voice channel and click Join my channel.</p><button id="invite" class="button invite-button" disabled>Invite bot ↗</button></div>
+  </dialog>
+  <script src="ui.js"></script>
+</body></html>
