@@ -1,0 +1,15 @@
+node_modules/
+.cache/
+dist/
+artifacts/
+*.log
+.env
+.env.*
+!.env.example
+
+# Local credentials and browser profiles must never be committed.
+bot-settings.json
+bot-settings.json.tmp
+Local State
+Partitions/
+Browser Radio/

@@ -1,0 +1,57 @@
+{
+  "name": "browser-radio",
+  "version": "1.0.2",
+  "description": "Your browser audio, live in Discord.",
+  "private": true,
+  "main": "src/main.js",
+  "author": "Browser Radio",
+  "license": "MIT",
+  "scripts": {
+    "start": "node scripts/run-electron.cjs .",
+    "test": "node --test test/*.test.js",
+    "test:audio": "node scripts/run-electron.cjs test/audio-probe.cjs",
+    "test:smoke": "node scripts/regression.cjs",
+    "pack": "electron-builder --win dir",
+    "dist": "electron-builder --win portable"
+  },
+  "dependencies": {
+    "@discordjs/voice": "0.19.2",
+    "@evan/opus": "1.0.3",
+    "discord.js": "14.27.0"
+  },
+  "devDependencies": {
+    "electron": "44.2.0",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "local.browserradio.desktop",
+    "productName": "Browser Radio",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "package.json",
+      "README.md"
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "**/*.node",
+      "**/*.wasm"
+    ],
+    "npmRebuild": false,
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "src/ui/icon.ico",
+      "signAndEditExecutable": true,
+      "artifactName": "Browser-Radio-${version}-Windows.${ext}"
+    }
+  }
+}
